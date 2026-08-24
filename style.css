@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+
+:root {
+  --color-forest: #0A2F1D;
+  --color-basalt: #794028;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+  --color-sand: #F7F5F0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--color-sand);
+  color: #1A2421;
+  overflow-x: hidden;
+}
+
+.font-serif-title {
+  font-family: 'Playfair Display', serif;
+}
+
+.bg-forest {
+  background-color: #0A2F1D;
+}
+
+.bg-basalt {
+  background-color: #794028;
+}
+
+.bg-gold-accent {
+  background-color: #D4AF37;
+}
+
+.text-forest {
+  color: #0A2F1D;
+}
+
+.text-basalt {
+  color: #794028;
+}
+
+.text-gold {
+  color: #D4AF37;
+}
+
+.border-gold {
+  border-color: #D4AF37;
+}
+
+.glass-panel {
+  background: rgba(10, 47, 29, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(121, 64, 40, 0.12);
+}
+
+.gold-glow {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+}
+
+.basalt-gradient {
+  background: linear-gradient(135deg, #0A2F1D 0%, #1A4D33 50%, #794028 100%);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #AA820A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border-gradient {
+  border-image: linear-gradient(to right, #D4AF37, #794028) 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A2F1D;
+}
+::-webkit-scrollbar-thumb {
+  background: #794028;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.03); opacity: 1; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s infinite ease-in-out;
+}
