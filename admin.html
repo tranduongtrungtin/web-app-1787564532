@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Admin Portal - Học Viện Đất Đen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: '#0A2F1D',
+            basalt: '#794028',
+            gold: '#D4AF37',
+            sand: '#F7F5F0'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans min-h-screen flex flex-col">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="bg-forest text-white border-b border-gold/30 px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-md">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full bg-basalt border border-gold flex items-center justify-center text-gold font-bold text-base">
+        <i class="fa-solid fa-leaf"></i>
+      </div>
+      <div>
+        <h1 class="font-serif-title font-bold text-base uppercase tracking-wider text-white">CMS QUẢN TRỊ - HỌC VIỆN ĐẤT ĐEN</h1>
+        <p class="text-[11px] text-gold tracking-widest uppercase">Hệ Thống Quản Lý Dữ Liệu Thật & Hộ Chiếu Năng Lực</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="px-3 py-1.5 bg-white/10 text-xs font-semibold rounded hover:bg-gold hover:text-forest transition-colors flex items-center gap-2 border border-white/20">
+        <i class="fa-solid fa-globe"></i> Xem Trang Client
+      </a>
+      <span class="px-3 py-1 bg-green-900/80 text-green-300 text-xs font-bold rounded-full border border-green-500/30">System Online</span>
+    </div>
+  </header>
+
+  <!-- MAIN ADMIN CONTENT -->
+  <div class="flex-1 flex flex-col md:flex-row max-w-7xl w-full mx-auto p-4 md:p-6 gap-6">
+    
+    <!-- SIDEBAR NAV -->
+    <aside class="w-full md:w-64 bg-white rounded-2xl p-4 shadow-sm border border-gray-200 shrink-0 h-fit space-y-2">
+      <div class="text-xs font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Danh Mục Quản Lý</div>
+      <button onclick="switchAdminTab('dashboard')" id="tabBtn-dashboard" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center gap-3 bg-forest text-white shadow transition-all">
+        <i class="fa-solid fa-chart-pie text-gold"></i> Dashboard Thống Kê
+      </button>
+      <button onclick="switchAdminTab('batches')" id="tabBtn-batches" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center gap-3 text-gray-700 hover:bg-gray-100 transition-all">
+        <i class="fa-solid fa-passport text-basalt"></i> Lô Hàng & Hộ Chiếu
+      </button>
+      <button onclick="switchAdminTab('inquiries')" id="tabBtn-inquiries" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center gap-3 text-gray-700 hover:bg-gray-100 transition-all">
+        <i class="fa-solid fa-users text-forest"></i> Đăng Ký Đối Tác <span id="inquiryBadgeCount" class="ml-auto bg-basalt text-white text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+      </button>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="flex-1 space-y-6">
+
+      <!-- TAB 1: DASHBOARD -->
+      <div id="tabContent-dashboard" class="space-y-6">
+        <!-- Metric Cards -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between text-gray-500 text-xs font-semibold uppercase">
+              <span>Nông Hộ Đào Tạo</span>
+              <i class="fa-solid fa-user-graduate text-forest text-lg"></i>
+            </div>
+            <p class="text-3xl font-bold font-serif-title text-forest mt-3" id="admStatFarmers">1,250</p>
+            <p class="text-[11px] text-green-600 mt-1 font-medium"><i class="fa-solid fa-arrow-trend-up"></i> +12% so với tháng trước</p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between text-gray-500 text-xs font-semibold uppercase">
+              <span>Vùng Nguyên Liệu</span>
+              <i class="fa-solid fa-vector-square text-basalt text-lg"></i>
+            </div>
+            <p class="text-3xl font-bold font-serif-title text-basalt mt-3" id="admStatHectares">3,800 ha</p>
+            <p class="text-[11px] text-green-600 mt-1 font-medium"><i class="fa-solid fa-check"></i> Chuẩn hóa sinh học 100%</p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between text-gray-500 text-xs font-semibold uppercase">
+              <span>Hộ Chiếu Đã Cấp</span>
+              <i class="fa-solid fa-passport text-gold text-lg"></i>
+            </div>
+            <p class="text-3xl font-bold font-serif-title text-gray-900 mt-3" id="admStatPassports">0</p>
+            <p class="text-[11px] text-gray-500 mt-1 font-medium">Cập nhật từ dữ liệu thật</p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between text-gray-500 text-xs font-semibold uppercase">
+              <span>Yêu Cầu Hợp Tác</span>
+              <i class="fa-solid fa-envelope-open-text text-amber-600 text-lg"></i>
+            </div>
+            <p class="text-3xl font-bold font-serif-title text-amber-700 mt-3" id="admStatInquiries">0</p>
+            <p class="text-[11px] text-amber-600 mt-1 font-medium">Chờ phản hồi & xử lý</p>
+          </div>
+        </div>
+
+        <!-- Quick Info Box -->
+        <div class="bg-forest text-white rounded-2xl p-6 shadow-md border border-gold/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-bold font-serif-title text-gold">Nguyên Tắc Quản Trị Dữ Liệu Đất Đen</h3>
+            <p class="text-xs text-gray-300 mt-1 max-w-xl leading-relaxed">
+              Mọi lô hàng tạo mới đều tự động liên kết dữ liệu thời gian thực và cho phép khách hàng tra cứu công khai bằng QR Code hoặc Mã Lô Hàng.
+            </p>
+          </div>
+          <button onclick="switchAdminTab('batches'); openAddBatchModal();" class="px-5 py-3 bg-gold text-forest rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-amber-300 transition-colors shrink-0 shadow-lg">
+            <i class="fa-solid fa-plus font-bold mr-1"></i> Thêm Lô Hàng Mới
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: BATCHES & PASSPORTS MANAGEMENT -->
+      <div id="tabContent-batches" class="hidden space-y-6">
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold font-serif-title text-forest">Danh Sách Lô Hàng & Hộ Chiếu Năng Lực</h3>
+              <p class="text-xs text-gray-500">Quản lý dữ liệu 3 lớp cho từng mã nông sản</p>
+            </div>
+            <button onclick="openAddBatchModal()" class="px-4 py-2.5 bg-forest text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-basalt transition-colors shadow flex items-center gap-2">
+              <i class="fa-solid fa-plus"></i> Thêm Lô Hàng Mới
+            </button>
+          </div>
+
+          <!-- Search & Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-gray-700 border-collapse">
+              <thead>
+                <tr class="bg-gray-50 border-b border-gray-200 text-gray-500 uppercase font-bold tracking-wider">
+                  <th class="p-3">Mã Lô Hàng</th>
+                  <th class="p-3">Tên Nông Sản</th>
+                  <th class="p-3">Nông Hộ / HTX</th>
+                  <th class="p-3">Vùng Canh Tác</th>
+                  <th class="p-3">Giảm CO2</th>
+                  <th class="p-3 text-center">Hành Động</th>
+                </tr>
+              </thead>
+              <tbody id="adminBatchTableBody" class="divide-y divide-gray-100 font-medium">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: INQUIRIES & CONTACT MANAGEMENT -->
+      <div id="tabContent-inquiries" class="hidden space-y-6">
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-4">
+          <div>
+            <h3 class="text-lg font-bold font-serif-title text-forest">Danh Sách Đăng Ký Học Viên & Đối Tác</h3>
+            <p class="text-xs text-gray-500">Danh sách người dùng đăng ký qua trang chủ Client</p>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-gray-700 border-collapse">
+              <thead>
+                <tr class="bg-gray-50 border-b border-gray-200 text-gray-500 uppercase font-bold tracking-wider">
+                  <th class="p-3">Thời Gian</th>
+                  <th class="p-3">Họ & Tên</th>
+                  <th class="p-3">Liên Hệ</th>
+                  <th class="p-3">Nhu Cầu</th>
+                  <th class="p-3">Trạng Thái</th>
+                  <th class="p-3 text-center">Hành Động</th>
+                </tr>
+              </thead>
+              <tbody id="adminInquiryTableBody" class="divide-y divide-gray-100 font-medium">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ADD BATCH -->
+  <div id="addBatchModal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-gray-200 my-8">
+      <button onclick="closeAddBatchModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-xl font-bold">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <h3 class="text-xl font-serif-title font-bold text-forest mb-4 uppercase">Thêm Mới Lô Hàng & Hộ Chiếu Năng Lực</h3>
+      <p class="text-xs text-gray-500 mb-6">Cập nhật 3 lớp dữ liệu cho mã định danh nông sản mới</p>
+
+      <form onsubmit="saveNewBatch(event)" class="space-y-4 text-xs">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-gray-700 uppercase mb-1">Mã Lô Hàng (Unique Code) *</label>
+            <input type="text" id="batchCode" required placeholder="VD: DATDEN-COFFEE-99" class="w-full p-2.5 rounded-lg border border-gray-300 font-mono uppercase focus:ring-2 focus:ring-forest">
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 uppercase mb-1">Tên Sản Phẩm *</label>
+            <input type="text" id="productName" required placeholder="VD: Cà Phê Robusta Lên Men Vi Sinh" class="w-full p-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-forest">
+          </div>
+        </div>
+
+        <!-- Layer 1 inputs -->
+        <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-3">
+          <span class="font-bold text-forest uppercase text-[11px] block"><i class="fa-solid fa-map-pin text-gold mr-1"></i> Lớp 1: Dữ liệu Nguồn Gốc</span>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-gray-600 mb-1">Tên Nông Hộ / HTX *</label>
+              <input type="text" id="farmerName" required placeholder="HTX Cư M'gar" class="w-full p-2 rounded border border-gray-300">
+            </div>
+            <div>
+              <label class="block font-semibold text-gray-600 mb-1">Địa Điểm / Vùng Trồng *</label>
+              <input type="text" id="location" required placeholder="Cư M'gar, Đắc Lắc" class="w-full p-2 rounded border border-gray-300">
+            </div>
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-600 mb-1">Tọa Độ GPS Nông Trại</label>
+            <input type="text" id="gpsCoords" placeholder="12.8251° N, 108.0645° E" class="w-full p-2 rounded border border-gray-300 font-mono">
+          </div>
+        </div>
+
+        <!-- Layer 2 inputs -->
+        <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-200 space-y-3">
+          <span class="font-bold text-basalt uppercase text-[11px] block"><i class="fa-solid fa-microscope text-basalt mr-1"></i> Lớp 2: Quá Trình Canh Tác</span>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-gray-600 mb-1">Quy Trình Sử Dụng Vi Sinh</label>
+              <input type="text" id="bioMethod" placeholder="Ủ phân vi sinh IMO4 + Bản địa hóa" class="w-full p-2 rounded border border-gray-300">
+            </div>
+            <div>
+              <label class="block font-semibold text-gray-600 mb-1">Chỉ Số Sức Khỏe Đất (0 - 10)</label>
+              <input type="text" id="soilBioIndex" placeholder="9.5/10" class="w-full p-2 rounded border border-gray-300">
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 3 inputs -->
+        <div class="p-3 bg-green-50/50 rounded-xl border border-green-200 space-y-3">
+          <span class="font-bold text-green-900 uppercase text-[11px] block"><i class="fa-solid fa-leaf text-green-600 mr-1"></i> Lớp 3: Kết Quả & Giảm Phát Thải</span>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-gray-600 mb-1">Lượng Giảm Phát Thải Carbon</label>
+              <input type="text" id="carbonOffset" placeholder="-3.5 tấn CO2e / ha" class="w-full p-2 rounded border border-gray-300">
+            </div>
+            <div>
+              <label class="block font-semibold text-gray-600 mb-1">Trạng Thái Kiểm Định</label>
+              <select id="testStatus" class="w-full p-2 rounded border border-gray-300">
+                <option value="Đã xác thực 0% dư lượng hóa chất">Đã xác thực 0% dư lượng hóa chất</option>
+                <option value="Đang cập nhật lab test">Đang cập nhật lab test</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-end gap-3">
+          <button type="button" onclick="closeAddBatchModal()" class="px-4 py-2 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition-colors uppercase">Hủy</button>
+          <button type="submit" class="px-6 py-2 bg-forest text-white font-bold rounded-lg hover:bg-basalt transition-colors uppercase tracking-wider">Lưu Hộ Chiếu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
